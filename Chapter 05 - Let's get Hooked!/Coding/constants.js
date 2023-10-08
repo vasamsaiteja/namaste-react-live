@@ -1,50 +1,4 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import FoodVillaLogo from "../Coding/Images/foodvilla.png";
-
-// My food app structure will look like
-/*
-1) Header
-  -Logo 
-  -Nav items(right side)
-  -cart 
-2) Body 
-  -search bar 
-  -restuarnt List 
-  -restuarnt card 
-   -image 
-   -Name
-   -Rating 
-3) Footer 
-  -links 
-  -copyrights
-*/
-
-const Title = () => (
-  <a href="/">
-    <img className="logo" src={FoodVillaLogo} alt="food villa" />
-  </a>
-);
-
-const Header = () => {
-  return (
-    <div className="headerContainer">
-      <Title />
-      <div className="listItems">
-        <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Contact</li>
-          <li>
-            <i className="fa-solid fa-cart-shopping"></i>
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-const restaurantList = [
+export const restaurantList = [
   {
     info: {
       id: "495716",
@@ -875,7 +829,7 @@ const restaurantList = [
   },
   {
     info: {
-      id: "748065",
+      id: "748066",
       name: "Burger King",
       cloudinaryImageId: "f8d6dce1f40b3e14ff83948a0d0f4b32",
       locality: "OMR Semmanchey",
@@ -884,7 +838,7 @@ const restaurantList = [
       cuisines: ["Burgers", "American"],
       avgRating: 4,
       feeDetails: {
-        restaurantId: "748065",
+        restaurantId: "748066",
         fees: [
           {
             name: "BASE_DISTANCE",
@@ -1139,77 +1093,5 @@ const restaurantList = [
   },
 ];
 
-const RestuarantCard = ({
-  cloudinaryImageId,
-  name,
-  cuisines,
-  areaName,
-  avgRating,
-}) => {
-  return (
-    <div className="card">
-      <div className="ImageCardContainer">
-        <img
-          src={
-            "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/" +
-            cloudinaryImageId
-          }
-          className="imageCard"
-        />
-      </div>
-      <div>
-        <h2 className="restuarant-heading">{name}</h2>
-        <h4 className="cuisines">{cuisines.join(",")}</h4>
-        <h4 className="cuisines">{areaName}</h4>
-        <span>
-          <h4 className="rating">
-            <i className="fa-solid fa-star Icon"></i>
-            {avgRating}
-          </h4>
-        </span>
-      </div>
-    </div>
-  );
-};
-
-const Body = () => {
-  return (
-    <>
-      <h2 className="headingStyle">Top restaurant chains in Chennai</h2>
-      <div className="restaurant-list">
-        {restaurantList.map((resturant) => (
-          <RestuarantCard key={resturant.info.id} {...resturant.info} />
-        ))}
-      </div>
-    </>
-  );
-};
-
-const Footer = () => {
-  return (
-    <div className="footerContainer">
-      Written and directed By
-      <i className="fa-solid fa-film"></i>
-      <a href="https://www.linkedin.com/in/vasamsaiteja/" target="_blank">
-        Vasam saiteja
-      </a>
-      <i className="fa-solid fa-copyright"></i>2023
-      <strong>
-        Food<span>Villa</span>
-      </strong>
-    </div>
-  );
-};
-
-const AppLayout = () => {
-  return (
-    <>
-      <Header />
-      <Body />
-      <Footer />
-    </>
-  );
-};
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<AppLayout />);
+export const IMG_CDN_URL =
+  "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/";
