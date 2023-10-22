@@ -34,19 +34,13 @@ const Body = () => {
   };
 
   const getRestaurants = async () => {
-    try {
-      const response = await fetch(SWIGGY_API_URL);
-      const json = await response.json();
+    const response = await fetch(SWIGGY_API_URL);
+    const json = await response.json();
 
-      const responseData = await checkJsonData(json);
-      setAllRestuarants(responseData);
-      setFilteredRestuarants(responseData);
-    } catch (error) {
-      console.log(error);
-    }
+    const responseData = await checkJsonData(json);
+    setAllRestuarants(responseData);
+    setFilteredRestuarants(responseData);
   };
-
-  if (!filteredRestuarants) return true;
 
   return (
     <>
