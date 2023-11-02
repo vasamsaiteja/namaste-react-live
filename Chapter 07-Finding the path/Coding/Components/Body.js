@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import RestuarantCard from "./RestaurantCard";
 import { SWIGGY_API_URL } from "../constants";
 import Shimmer from "./Shimmer";
+import NoRestuarantFound from "../Assets/NoRestuarantFound.jpg";
+import { Link } from "react-router-dom";
 
 const filterData = (serachInput, restaurants) => {
   return restaurants.filter((item) =>
@@ -34,13 +36,19 @@ const Body = () => {
   };
 
   const getRestaurants = async () => {
-    const response = await fetch(SWIGGY_API_URL);
-    const json = await response.json();
+    try {
+      const response = await fetch(SWIGGY_API_URL);
+      const json = await response.json();
 
-    const responseData = await checkJsonData(json);
-    setAllRestuarants(responseData);
-    setFilteredRestuarants(responseData);
+      const responseData = await checkJsonData(json);
+      setAllRestuarants(responseData);
+      setFilteredRestuarants(responseData);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  if (!allRestuarants) return null;
 
   return (
     <>
@@ -72,14 +80,22 @@ const Body = () => {
       <h2 className="headingStyle">Top restaurant chains in Chennai</h2>
       {errorMessage && (
         <div className="error-container">
+          <img src={NoRestuarantFound} className="image-content-restuarant" />
           {serachInput?.length > 0 && `"${serachInput}" ${errorMessage}`}
         </div>
       )}
       {allRestuarants?.length > 0 ? (
         <div className="restaurant-list">
-          {filteredRestuarants?.map((resturant) => (
-            <RestuarantCard key={resturant?.info?.id} {...resturant.info} />
-          ))}
+          {filteredRestuarants?.map((resturant) => {
+            return (
+              <Link
+                to={"/restaurant/" + resturant?.info?.id}
+                key={resturant?.info?.id}
+              >
+                <RestuarantCard {...resturant.info} />
+              </Link>
+            );
+          })}
         </div>
       ) : (
         <Shimmer />

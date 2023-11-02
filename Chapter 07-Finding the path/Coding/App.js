@@ -7,8 +7,9 @@ import Footer from "./Components/Footer";
 import About from "./Components/About";
 import Error from "./Components/Error";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Contact from "./Components/ContactUs";
+import RestaurantMenu from "./Components/RestaurantMenu";
 
 // My food app structure will look like
 /*
@@ -32,7 +33,8 @@ const AppLayout = () => {
   return (
     <>
       <Header />
-      <Body />
+      {/* <Body /> */}
+      <Outlet />
       <Footer />
     </>
   );
@@ -43,14 +45,24 @@ const appRouter = createBrowserRouter([
     path: "/",
     element: <AppLayout />,
     errorElement: <Error />,
-  },
-  {
-    path: "/about",
-    element: <About />,
-  },
-  {
-    path: "/contact",
-    element: <Contact />,
+    children: [
+      {
+        path: "/",
+        element: <Body />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/restaurant/:resId",
+        element: <RestaurantMenu />,
+      },
+    ],
   },
 ]);
 
