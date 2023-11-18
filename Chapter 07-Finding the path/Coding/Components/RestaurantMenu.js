@@ -6,6 +6,7 @@ import {
   SWIGGY_MENU_API_URL,
   ITEM_IMG_CDN_URL,
 } from "../constants";
+import Shimmer, { MenuShimmer } from "./Shimmer";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
@@ -44,8 +45,10 @@ const RestaurantMenu = () => {
     }
   };
 
-  console.log(menuItems, "menu");
-  return (
+  console.log(menuItems, restaurantMenu, "menu");
+  return !restaurantMenu || menuItems.length === 0 ? (
+    <MenuShimmer />
+  ) : (
     <div className="resturant-top-container">
       <div className="resturant-summary-container">
         <img
@@ -95,8 +98,8 @@ const RestaurantMenu = () => {
                 </div>
                 <div>
                   <img src={ITEM_IMG_CDN_URL + item?.imageId} />
-                  <div>
-                    <button>ADD +</button>
+                  <div className="buttonBorder">
+                    <button className="add-button">ADD +</button>
                   </div>
                 </div>
               </div>

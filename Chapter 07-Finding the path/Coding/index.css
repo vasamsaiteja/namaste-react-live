@@ -582,4 +582,22 @@ a {
   /* width: 60%; */
   letter-spacing: -0.3px;
   font-family: "Roboto";
+  max-height: 3em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: auto;
+}
+.add-button {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 8px 25px;
+  cursor: pointer;
+  outline: none;
+  border-radius: 5px;
+}
+.buttonBorder {
+  /* border: 1px solid red; */
+  text-align: center;
+  margin-top: 10px;
 }
