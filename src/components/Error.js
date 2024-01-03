@@ -1,13 +1,23 @@
-import { useRouteError } from "react-router-dom";
+import { useRouteError, Link } from "react-router-dom";
+import ErrorImage from "../assets/img/saitejaPageNotfound.jpg";
 
 const Error = () => {
   const err = useRouteError();
-  console.log(err);
+  console.log(err, "err");
   return (
-    <div>
-      <h1>Oops!!</h1>
-      <h2>Something went wrong!!</h2>
-      <h2>{err.status + " :  " + err.statusText}</h2>
+    <div className="error-container">
+      <div className="image-box-container">
+        <img src={ErrorImage} alt="ErrorImage" className="image-content" />
+      </div>
+      <div className="text-container">
+        <h1 className="error-heading">
+          Oops! The path you're looking for can't be found.
+        </h1>
+        <h2 className="error-data-heading">{err.data}</h2>
+        <Link to="/">
+          <button className="err-button">Back to Home</button>
+        </Link>
+      </div>
     </div>
   );
 };

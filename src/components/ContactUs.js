@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ContactLogo from "../Assets/contactUs.jpg";
+import ContactLogo from "../assets/img/contactUs.jpg";
 import { Link } from "react-router-dom";
 
 const Contact = () => {

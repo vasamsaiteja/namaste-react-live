@@ -1,58 +1,48 @@
-import { Outlet } from "react-router-dom";
-import ProfileFunctionalComponet from "./Profile";
-import Profile from "./ProfileClass";
-import { Component } from "react";
-import UserContext from "../utils/UserContext";
+import { Link } from "react-router-dom";
 
-class About extends Component {
-  constructor(props) {
-    super(props);
-
-    //console.log("Parent - constructor");
-  }
-  componentDidMount() {
-    // Best place to make an Api call
-    //console.log("Parent - componentDidMount");
-  }
-  render() {
-    //console.log("Parent - render");
-    return (
-      <div>
-        <h1>About Us Page</h1>
-
-        <UserContext.Consumer>
-          {({ user }) => (
-            <h4 className="font-bold text-xl p-10">
-              {user.name}- {user.email}
-            </h4>
-          )}
-        </UserContext.Consumer>
-
-        <p>
-          This is the Namaste React Live Course Chapter 07 - Finding the Path 🚀
-        </p>
-        <Profile />
+const About = () => {
+  return (
+    <div className="about-us-page-container">
+      <div className="about-content-container">
+        <div className="about-food-content">
+          <h1>
+            Welcome to the tasty authentic Indian food
+            <br /> which feels like having home food here itself.
+          </h1>
+          <h2>Welcome to the family of food villa.</h2>
+        </div>
+        <div>
+          <h1>
+            If you want more information about <br /> the food application
+            connect me with.
+          </h1>
+          <div className="anchor-card">
+            <a href="https://github.com/vasamsaiteja" target="_blank">
+              <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/vasamsaiteja/" target="_blank">
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/vasamsaiteja" target="_blank">
+              <i class="fa-brands fa-github"></i>
+            </a>
+          </div>
+        </div>
+        <Link to="/">
+          <div className="button-container">
+            <button className="button-style">Back to Home</button>
+          </div>
+        </Link>
       </div>
-    );
-  }
-}
+      <div>
+        <img
+          src="https://res.cloudinary.com/saiteja68/image/upload/v1697821585/6054b25e2ed3214f733a604a_1616163422206_si8kmq.jpg"
+          alt="About Food"
+          className="image-card"
+        />
+      </div>
+    </div>
+  );
+};
 
 export default About;
-
-/**
- *
- * Parent Constructor
- * Parent render
- *    First Child constructor
- *    First Child render
- *    Second Child constructor
- *    Second Child render
- *
- *    DOM UPDATED for children
- *
- *    first Child componentDidMount
- *    Second Child componentDid
- *  Parent componentDidMount
- *
- *
- */

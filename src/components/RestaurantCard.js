@@ -1,25 +1,30 @@
-import { IMG_CDN_URL } from "../contants";
-import { useContext } from "react";
-import UserContext from "../utils/UserContext";
+import { IMG_CDN_URL } from "../constants";
 
-const RestrauntCard = ({
+const RestuarantCard = ({
+  cloudinaryImageId,
   name,
   cuisines,
-  cloudinaryImageId,
-  lastMileTravelString,
+  areaName,
+  avgRating,
 }) => {
-  const { user } = useContext(UserContext);
   return (
-    <div className="w-56 p-2 m-2 shadow-lg bg-pink-50">
-      <img src={IMG_CDN_URL + cloudinaryImageId} />
-      <h2 className="font-bold text-xl">{name}</h2>
-      <h3>{cuisines.join(", ")}</h3>
-      <h4>{lastMileTravelString}</h4>
-      <h5 className="font-bold">
-        {user.name} - {user.email}
-      </h5>
+    <div className="card">
+      <div className="ImageCardContainer">
+        <img src={IMG_CDN_URL + cloudinaryImageId} className="imageCard" />
+      </div>
+      <div>
+        <h2 className="restuarant-heading">{name}</h2>
+        <h4 className="cuisines">{cuisines.join(",")}</h4>
+        <h4 className="cuisines">{areaName}</h4>
+        <span>
+          <h4 className="rating">
+            <i className="fa-solid fa-star" style={{ color: "green" }}></i>
+            {avgRating}
+          </h4>
+        </span>
+      </div>
     </div>
   );
 };
 
-export default RestrauntCard;
+export default RestuarantCard;

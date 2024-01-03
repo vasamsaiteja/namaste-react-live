@@ -1,15 +1,19 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 
-import Header from "./Components/Header";
-import Body from "./Components/Body";
-import Footer from "./Components/Footer";
-import About from "./Components/About";
-import Error from "./Components/Error";
+import Header from "./components/Header";
+import Body from "./components/Body";
+import Footer from "./components/Footer";
+import Error from "./components/Error";
 
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import Contact from "./Components/ContactUs";
-import RestaurantMenu from "./Components/RestaurantMenu";
+import Contact from "./components/ContactUs";
+import RestaurantMenu from "./components/RestaurantMenu";
+import Shimmer from "./components/Shimmer";
+// import Instamart from "./Components/Instamart";
+
+const About = lazy(() => import("./Components/About"));
+const Instamart = lazy(() => import("./Components/Instamart"));
 
 // My food app structure will look like
 /*
@@ -52,7 +56,11 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <About />,
+        element: (
+          <Suspense fallback={<h1>Loading...</h1>}>
+            <About />
+          </Suspense>
+        ),
       },
       {
         path: "/contact",
@@ -61,6 +69,14 @@ const appRouter = createBrowserRouter([
       {
         path: "/restaurant/:resId",
         element: <RestaurantMenu />,
+      },
+      {
+        path: "/instamart",
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <Instamart />
+          </Suspense>
+        ),
       },
     ],
   },

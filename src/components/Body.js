@@ -1,91 +1,81 @@
-import { restaurantList } from "../contants";
-import RestaurantCard from "./RestaurantCard";
-import { useState, useEffect, useContext } from "react";
+import { useState } from "react";
+import RestuarantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
+import NoRestuarantFound from "../assets/img/NoRestuarantFound.jpg";
 import { Link } from "react-router-dom";
 import { filterData } from "../utils/helper";
+import useGetResturantList from "../utils/useGetRestaurantList";
 import useOnline from "../utils/useOnline";
-import UserContext from "../utils/UserContext";
 
 const Body = () => {
-  const [allRestaurants, setAllRestaurants] = useState([]);
-  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
-  const [searchText, setSearchText] = useState("");
-  const { user, setUser } = useContext(UserContext);
+  const [serachInput, setSearchInput] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  useEffect(() => {
-    getRestaurants();
-  }, []);
+  const [allRestuarants, filteredRestuarants, setFilteredRestuarants] =
+    useGetResturantList();
 
-  async function getRestaurants() {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
+  const online = useOnline();
+
+  if (!online) {
+    return (
+      <h1 className="offlineHeading">
+        <span className="redBullet">•</span> Offline, please check your internet
+        connection.
+      </h1>
     );
-    const json = await data.json();
-    setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
-    setFilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
   }
-  if (!allRestaurants) return null;
 
-  return allRestaurants?.length === 0 ? (
-    <Shimmer />
-  ) : (
+  if (!allRestuarants) return null;
+
+  return (
     <>
-      <div className="search-container p-5 bg-pink-50 my-5">
+      <div className="search-container p-5 bg-gray-50 my-2">
         <input
-          data-testid="search-input"
           type="text"
-          className="focus:bg-green-200 p-2 m-2"
-          placeholder="Search"
-          value={searchText}
+          placeholder="Search Restaurant"
+          value={serachInput}
+          className="inputField border-2 border-gray-200"
           onChange={(e) => {
-            setSearchText(e.target.value);
+            setSearchInput(e.target.value);
           }}
         />
         <button
-          data-testid="search-btn"
-          className="p-2 m-2 bg-purple-900 hover:bg-gray-500 text-white rounded-md"
+          className="search-button p-2 m-3 bg-black text-white rounded-lg"
           onClick={() => {
-            //need to filter the data
-            const data = filterData(searchText, allRestaurants);
-            // update the state - restaurants
-            setFilteredRestaurants(data);
+            const data = filterData(serachInput, allRestuarants);
+            setFilteredRestuarants(data);
+            setErrorMessage("");
+            if (data?.length === 0) {
+              setErrorMessage("No restuarant found");
+            }
           }}
         >
           Search
         </button>
-        <input
-          value={user.name}
-          onChange={(e) =>
-            setUser({
-              ...user,
-              name: e.target.value,
-            })
-          }
-        ></input>
-        <input
-          value={user.email}
-          onChange={(e) =>
-            setUser({
-              ...user,
-              email: e.target.value,
-            })
-          }
-        ></input>
       </div>
-      <div className="flex flex-wrap " data-testid="res-list">
-        {/* You have to write logic for NO restraunt fount here */}
-        {filteredRestaurants.map((restaurant) => {
-          return (
-            <Link
-              to={"/restaurant/" + restaurant.data.id}
-              key={restaurant.data.id}
-            >
-              <RestaurantCard {...restaurant.data} />
-            </Link>
-          );
-        })}
-      </div>
+      <h2 className="headingStyle">Top restaurant chains in Chennai</h2>
+      {errorMessage && (
+        <div className="error-container">
+          <img src={NoRestuarantFound} className="image-content-restuarant" />
+          {serachInput?.length > 0 && `"${serachInput}" ${errorMessage}`}
+        </div>
+      )}
+      {allRestuarants?.length > 0 ? (
+        <div className="restaurant-list">
+          {filteredRestuarants?.map((resturant) => {
+            return (
+              <Link
+                to={"/restaurant/" + resturant?.info?.id}
+                key={resturant?.info?.id}
+              >
+                <RestuarantCard {...resturant.info} />
+              </Link>
+            );
+          })}
+        </div>
+      ) : (
+        <Shimmer />
+      )}
     </>
   );
 };

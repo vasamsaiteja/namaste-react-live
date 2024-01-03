@@ -1,13 +1,16 @@
-import { useContext } from "react";
-import UserContext from "../utils/UserContext";
-
 const Footer = () => {
-  const { user } = useContext(UserContext);
-
   return (
-    <h4 className="p-10 m-10">
-      This site is developed by {user.name} - {user.email}
-    </h4>
+    <div className="footerContainer">
+      Written and directed By
+      <i className="fa-solid fa-film"></i>
+      <a href="https://www.linkedin.com/in/vasamsaiteja/" target="_blank">
+        Vasam saiteja
+      </a>
+      <i className="fa-solid fa-copyright"></i>2023
+      <strong>
+        Food<span>Villa</span>
+      </strong>
+    </div>
   );
 };
 
