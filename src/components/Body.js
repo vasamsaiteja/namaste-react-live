@@ -40,7 +40,7 @@ const Body = () => {
           }}
         />
         <button
-          className="search-button p-2 m-3 bg-black text-white rounded-lg"
+          className="search-button p-2 m-3 bg-black hover:bg-gray-500 text-white rounded-lg"
           onClick={() => {
             const data = filterData(serachInput, allRestuarants);
             setFilteredRestuarants(data);
@@ -53,7 +53,9 @@ const Body = () => {
           Search
         </button>
       </div>
-      <h2 className="headingStyle">Top restaurant chains in Chennai</h2>
+      <h2 className="text-xl font-bold text-center">
+        Top restaurant chains in Chennai
+      </h2>
       {errorMessage && (
         <div className="error-container">
           <img src={NoRestuarantFound} className="image-content-restuarant" />
@@ -61,7 +63,7 @@ const Body = () => {
         </div>
       )}
       {allRestuarants?.length > 0 ? (
-        <div className="restaurant-list">
+        <div className="flex flex-wrap justify-center">
           {filteredRestuarants?.map((resturant) => {
             return (
               <Link

@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 
 const About = () => {
   return (
-    <div className="about-us-page-container">
-      <div className="about-content-container">
-        <div className="about-food-content">
-          <h1>
+    <div className="about-us-page-container flex justify-between p-2 m-2">
+      <div className="about-content-container  p-2">
+        <div className="about-food-content self-center">
+          <h1 className="text-2xl font-bold">
             Welcome to the tasty authentic Indian food
             <br /> which feels like having home food here itself.
           </h1>
