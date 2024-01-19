@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import RestuarantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import NoRestuarantFound from "../assets/img/NoRestuarantFound.jpg";
@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { filterData } from "../utils/helper";
 import useGetResturantList from "../utils/useGetRestaurantList";
 import useOnline from "../utils/useOnline";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const [serachInput, setSearchInput] = useState("");
@@ -26,6 +27,8 @@ const Body = () => {
   }
 
   if (!allRestuarants) return null;
+
+  const { user, setUser } = useContext(UserContext);
 
   return (
     <>
@@ -52,6 +55,17 @@ const Body = () => {
         >
           Search
         </button>
+        <input
+          className="border-2 border-gray-200"
+          placeholder="Enter User Name"
+          value={user.name}
+          onChange={(e) => {
+            setUser({
+              ...user,
+              name: e.target.value,
+            });
+          }}
+        />
       </div>
       <h2 className="text-xl font-bold text-center">
         Top restaurant chains in Chennai

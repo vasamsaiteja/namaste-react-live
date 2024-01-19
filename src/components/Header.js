@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import FoodVillaLogo from "../assets/img/foodVilla.png";
 import { Link } from "react-router-dom";
+import UserContext from "../utils/UserContext";
 
 const Title = () => (
   <a href="/">
@@ -8,9 +10,12 @@ const Title = () => (
 );
 
 const Header = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <div className="flex justify-between bg-gray-100 shadow-lg">
       <Title />
+      <h1 className="p-10 m-2 font-bold text-xl text-center">{user.name}</h1>
       <div className="listItems">
         <ul className="flex py-12">
           <li className="px-2 ">
