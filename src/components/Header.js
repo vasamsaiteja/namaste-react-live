@@ -2,6 +2,8 @@ import { useContext } from "react";
 import FoodVillaLogo from "../assets/img/foodVilla.png";
 import { Link } from "react-router-dom";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
+import store from "../utils/store";
 
 const Title = () => (
   <a href="/">
@@ -11,6 +13,8 @@ const Title = () => (
 
 const Header = () => {
   const { user } = useContext(UserContext);
+  const cartItems = useSelector((store) => store.cart.items);
+  console.log(cartItems);
 
   return (
     <div className="flex justify-between bg-gray-100 shadow-lg">
@@ -36,6 +40,11 @@ const Header = () => {
           <li className="px-2">
             <Link to="/instamart" className="font-bold">
               Instamart
+            </Link>
+          </li>
+          <li className="px-2">
+            <Link to="/cart" className="font-bold">
+              Cart - {cartItems.length} items
             </Link>
           </li>
           <li className="px-2">

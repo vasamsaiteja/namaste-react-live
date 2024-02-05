@@ -2,10 +2,19 @@ import { useParams } from "react-router-dom";
 import { IMG_CDN_URL, ITEM_IMG_CDN_URL } from "../constants";
 import { MenuShimmer } from "./Shimmer";
 import useRestaurant from "../utils/useRestaurant";
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/cartSlice";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const [restaurantMenu, menuItems] = useRestaurant(resId);
+
+  const dispatch = useDispatch();
+
+  const addFoodItem = (item) => {
+    dispatch(addItem(item));
+  };
+
   return !restaurantMenu || menuItems.length === 0 ? (
     <MenuShimmer />
   ) : (
@@ -67,7 +76,10 @@ const RestaurantMenu = () => {
                     className="w-52 h-40"
                   />
                   <div className="buttonBorder p-2 text-center w-50 ">
-                    <button className="bg-black text-white p-2 rounded-md text-md">
+                    <button
+                      className="bg-black text-white p-2 rounded-md text-md"
+                      onClick={() => addFoodItem(item)}
+                    >
                       ADD +
                     </button>
                   </div>
